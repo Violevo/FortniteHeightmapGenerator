@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Exclude dependency source files from main project compilation -->
+  <ItemGroup>
+    <Compile Remove="Dependencies\**" />
+    <Content Remove="Dependencies\**" />
+    <EmbeddedResource Remove="Dependencies\**" />
+    <None Remove="Dependencies\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="Dependencies\CUE4Parse\CUE4Parse\CUE4Parse.csproj" />
+    <ProjectReference Include="Dependencies\CUE4Parse\CUE4Parse-Conversion\CUE4Parse-Conversion.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
+  </ItemGroup>
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <SelfContained>true</SelfContained>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <PublishSingleFile>true</PublishSingleFile>
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    </PropertyGroup>
+
+</Project>
