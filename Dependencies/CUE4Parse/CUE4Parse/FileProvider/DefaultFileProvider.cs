@@ -6,6 +6,7 @@ using System.Linq;
 using CUE4Parse.FileProvider.Objects;
 using CUE4Parse.FileProvider.Vfs;
 using CUE4Parse.UE4.IO;
+using CUE4Parse.UE4.IO.OnDemand;
 using CUE4Parse.UE4.Versions;
 using CUE4Parse.Utils;
 
@@ -97,15 +98,15 @@ namespace CUE4Parse.FileProvider
                 // Only load containers if .uproject file is not found
                 if (uproject is null && upperExt is "PAK" or "UTOC")
                 {
-                    if (file.FullName.Contains(@"ThirdParty\CEF3\Win64\Resources") || file.FullName.Contains(@"Binaries\Win32\host")) continue;
+                    if (file.FullName.Contains(@"Binaries\ThirdParty\CEF", StringComparison.OrdinalIgnoreCase) || file.FullName.Contains(@"Binaries\Win32\host")) continue;
                     RegisterVfs(file);
                     continue;
                 }
 
                 if (uproject is null && OnDemandOptions is not null && upperExt is "UONDEMANDTOC")
                 {
-                    var ioChunkTok = new IoChunkToc(file.FullName);
-                    RegisterVfs(ioChunkTok, OnDemandOptions);
+                    var onDemandToc = new FOnDemandTocReader(file.FullName);
+                    RegisterVfs(onDemandToc);
                     continue;
                 }
 
